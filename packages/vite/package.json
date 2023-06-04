@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "unbuild --watch",
+    "dev": "unbuild --stub",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepublishOnly": "nr build",
