@@ -1,3 +1,5 @@
+import path from 'node:path'
+
 const EXTERNAL_TYPES = [
   'css',
   'less',
@@ -22,4 +24,6 @@ const EXTERNAL_TYPES = [
 
 const BARE_IMPORT_RE = /^[\w@][^:]/
 
-export { EXTERNAL_TYPES, BARE_IMPORT_RE }
+const PRE_BUNDLE_DIR = path.resolve('node_modules', '.pvite')
+
+export { EXTERNAL_TYPES, BARE_IMPORT_RE, PRE_BUNDLE_DIR }

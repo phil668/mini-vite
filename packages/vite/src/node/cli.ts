@@ -14,3 +14,9 @@ cli
 cli.help()
 
 cli.parse()
+
+const a = 123
+
+export { cli }
+export { startDevServer } from './server/index'
+export default a
