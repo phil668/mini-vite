@@ -94,6 +94,9 @@ importers:
       picocolors:
         specifier: ^1.0.0
         version: 1.0.0
+      react:
+        specifier: '17'
+        version: 17.0.0
       resolve:
         specifier: ^1.22.2
         version: 1.22.2

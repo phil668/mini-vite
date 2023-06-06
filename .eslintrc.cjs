@@ -5,6 +5,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unsafe-return': 'off',
     'no-console': 'off',
+    '@typescript-eslint/no-unsafe-argument': 'off',
   },
   ignorePatterns: ['playground/**'],
 }

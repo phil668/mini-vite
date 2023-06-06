@@ -3,5 +3,7 @@
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "editor.autoIndent": "full",
+  "editor.wordWrap": "on"
 }
