@@ -5,6 +5,7 @@ import type { Plugin } from '../plugin'
 import { resolvePlugins } from '../plugin'
 import type { PluginContainer } from '../pluginContainer'
 import { createPluginContainer } from '../pluginContainer'
+import { indexHtmlMiddleware } from './middlewares/indexHtml'
 
 export interface ServerContext {
   root: string
@@ -33,6 +34,8 @@ function startDevServer() {
     // await
       plugin.configureServer(serverContext)
   }
+
+  app.use(indexHtmlMiddleware(serverContext))
 
   app.listen(5173, async () => {
     await optimize(root)
