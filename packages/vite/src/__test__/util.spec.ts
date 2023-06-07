@@ -6,7 +6,7 @@ import { expect, it } from 'vitest'
 import { readFile } from 'fs-extra'
 import { init, parse } from 'es-module-lexer'
 import { sync } from 'resolve'
-import { normalizePath } from '../node/util'
+import { cleanURL, normalizePath } from '../node/util'
 
 it('normalize mac path', () => {
   expect(normalizePath('/Desktop/Fe/project/mini-vite/playground/react-tsx')).toBe('/Desktop/Fe/project/mini-vite/playground/react-tsx')
@@ -171,4 +171,8 @@ it('parse cjs module', () => {
     ]
   `)
   expect(path.extname(entryPath).slice(1)).toBe('js')
+})
+
+it('clear url', () => {
+  expect(cleanURL('https://www.baidu.com/detail#dashboard?key="liuyue"')).toBe('https://www.baidu.com/detail')
 })

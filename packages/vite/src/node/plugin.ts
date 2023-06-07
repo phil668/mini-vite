@@ -5,7 +5,7 @@ export type ServerHook = (server: ServerContext) => (() => void | void | Promise
 
 export interface Plugin {
   name: string
-  configureServer: ServerHook
+  configureServer?: ServerHook
   resolveId?: (
     id: string,
     importer?: string
@@ -19,5 +19,16 @@ export interface Plugin {
 }
 
 export function resolvePlugins() {
-  return []
+  const plugin: Plugin = {
+    name: 'test:plugin',
+    resolveId(id) {
+      console.log('id', id)
+      return { id }
+    },
+    transformIndexHtml(raw) {
+      console.log('raw', raw)
+      return raw
+    },
+  }
+  return [plugin]
 }
