@@ -7,7 +7,8 @@
   "keywords": [],
   "main": "dist/cli.cjs",
   "bin": {
-    "pvite": "./bin/index.mjs"
+    "pvite": "./bin/index.mjs",
+    "p": "./bin/index.mjs"
   },
   "scripts": {
     "build": "unbuild",

@@ -6,6 +6,7 @@ import { resolvePlugins } from '../plugin'
 import type { PluginContainer } from '../pluginContainer'
 import { createPluginContainer } from '../pluginContainer'
 import { indexHtmlMiddleware } from './middlewares/indexHtml'
+import { transformMiddleware } from './middlewares/transform'
 
 export interface ServerContext {
   root: string
@@ -14,7 +15,7 @@ export interface ServerContext {
   app: connect.Server
 }
 
-function startDevServer() {
+async function startDevServer() {
   const app = connect()
   const root = process.cwd()
   const startTIme = Date.now()
@@ -31,11 +32,12 @@ function startDevServer() {
 
   for (const plugin of plugins) {
     if (plugin.configureServer)
-    // await
-      plugin.configureServer(serverContext)
+      await plugin.configureServer(serverContext)
   }
 
   app.use(indexHtmlMiddleware(serverContext))
+
+  app.use(transformMiddleware(serverContext))
 
   app.listen(5173, async () => {
     await optimize(root)

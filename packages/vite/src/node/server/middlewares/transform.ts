@@ -11,6 +11,7 @@ async function transformRequest(
 ) {
   const { pluginContainer } = serverContext
   url = cleanURL(url)
+  console.log('url123', url)
   // 依次调用resolveId,load,transform对代码进行处理
   const resolvedResult = await pluginContainer.resolveId(url)
   let transformResult
@@ -33,6 +34,7 @@ function transformMiddleware(serverContext: ServerContext): NextHandleFunction {
     debug('transform middleware :%s', url)
     // 转译js请求
     if (isJsRequest(url)) {
+      debug('url :%s', url)
       let result = await transformRequest(url, serverContext)
       if (!result)
         return next()

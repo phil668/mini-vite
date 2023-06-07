@@ -1,7 +1,11 @@
 import type { LoadResult, PartialResolvedId, SourceDescription } from 'rollup'
 import type { ServerContext } from './server/index'
+import { resolvePlugin } from './plugins/resolve'
 
-export type ServerHook = (server: ServerContext) => (() => void | void | Promise<() => void> | void)
+// export type ServerHook = (server: ServerContext) => (void)
+export type ServerHook = (
+  server: ServerContext
+) => (() => void) | void | Promise<(() => void) | void>
 
 export interface Plugin {
   name: string
@@ -22,13 +26,11 @@ export function resolvePlugins() {
   const plugin: Plugin = {
     name: 'test:plugin',
     resolveId(id) {
-      console.log('id', id)
       return { id }
     },
     transformIndexHtml(raw) {
-      console.log('raw', raw)
       return raw
     },
   }
-  return [plugin]
+  return [plugin, resolvePlugin(), plugin]
 }

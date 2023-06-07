@@ -9,19 +9,16 @@ import type { ServerContext } from '../index'
  * 将html文件交给plugin处理,处理完之后返回给浏览器
  */
 function indexHtmlMiddleware(serverContext: ServerContext): NextHandleFunction {
-  console.log(serverContext)
   const { root, plugins } = serverContext
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   return async (req, res, next) => {
     try {
       console.log('req.url', req.url)
       if (req.url === '/') {
-        console.log('req', req)
         const indexHtmlPath = resolve(root, 'index.html')
         const isIndexHtmlExist = await pathExists(indexHtmlPath)
         if (isIndexHtmlExist) {
           let html = await readFile(indexHtmlPath, { encoding: 'utf-8' })
-          console.log(html)
           for (const plugin of plugins) {
             if (plugin.transformIndexHtml)
               html = await plugin.transformIndexHtml(html)
