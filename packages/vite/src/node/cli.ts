@@ -7,8 +7,8 @@ cli
   .command('[root]', 'Run the development server')
   .alias('serve')
   .alias('dev')
-  .action(() => {
-    startDevServer()
+  .action(async () => {
+    await startDevServer()
   })
 
 cli.help()

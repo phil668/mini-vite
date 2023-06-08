@@ -23,14 +23,5 @@ export interface Plugin {
 }
 
 export function resolvePlugins() {
-  const plugin: Plugin = {
-    name: 'test:plugin',
-    resolveId(id) {
-      return { id }
-    },
-    transformIndexHtml(raw) {
-      return raw
-    },
-  }
-  return [plugin, resolvePlugin(), plugin]
+  return [resolvePlugin()]
 }

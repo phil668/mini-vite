@@ -18,10 +18,9 @@ function resolvePlugin(): Plugin {
       if (path.isAbsolute(id)) {
         if (await pathExists(id))
           return { id }
-        id = path.join(serverContext.root)
+        id = path.join(serverContext.root, id)
         if (await pathExists(id))
-          console.log('id123', id)
-        return { id }
+          return { id }
       }
       else if (id.startsWith('.')) {
         if (!importer)

@@ -14,6 +14,7 @@ async function transformRequest(
   console.log('url123', url)
   // 依次调用resolveId,load,transform对代码进行处理
   const resolvedResult = await pluginContainer.resolveId(url)
+  console.log('resolvedResult', resolvedResult)
   let transformResult
   if (resolvedResult?.id) {
     let code = await pluginContainer.load(resolvedResult.id)
