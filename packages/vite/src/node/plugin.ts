@@ -1,6 +1,7 @@
 import type { LoadResult, PartialResolvedId, SourceDescription } from 'rollup'
 import type { ServerContext } from './server/index'
 import { resolvePlugin } from './plugins/resolve'
+import { esbuildTransformPlugin } from './plugins/esbuild'
 
 // export type ServerHook = (server: ServerContext) => (void)
 export type ServerHook = (
@@ -23,5 +24,5 @@ export interface Plugin {
 }
 
 export function resolvePlugins() {
-  return [resolvePlugin()]
+  return [resolvePlugin(), esbuildTransformPlugin()]
 }
