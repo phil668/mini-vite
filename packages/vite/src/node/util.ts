@@ -29,4 +29,8 @@ function isJsRequest(id: string) {
   return false
 }
 
-export { normalizePath, cleanURL, isJsRequest }
+function isCssRequest(id: string) {
+  return cleanURL(id).endsWith('.css')
+}
+
+export { normalizePath, cleanURL, isJsRequest, isCssRequest }

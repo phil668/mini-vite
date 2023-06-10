@@ -1,6 +1,6 @@
 import type { NextHandleFunction } from 'connect'
 import createDebug from 'debug'
-import { cleanURL, isJsRequest } from '../../util'
+import { cleanURL, isCssRequest, isJsRequest } from '../../util'
 import type { ServerContext } from '../index'
 
 const debug = createDebug('dev')
@@ -34,7 +34,7 @@ function transformMiddleware(serverContext: ServerContext): NextHandleFunction {
     const { url } = req
     debug('transform middleware :%s', url)
     // 转译js请求
-    if (isJsRequest(url)) {
+    if (isJsRequest(url) || isCssRequest(url)) {
       debug('url :%s', url)
       let result = await transformRequest(url, serverContext)
       if (!result)
