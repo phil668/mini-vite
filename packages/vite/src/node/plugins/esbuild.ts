@@ -5,6 +5,10 @@ import esbuild from 'esbuild'
 import type { Plugin } from '../plugin'
 import { isJsRequest } from '../util'
 
+/**
+ * 将ts tsx jsx利用esbuild转换成浏览器可以执行的代码
+ * @returns
+ */
 function esbuildTransformPlugin(): Plugin {
   return {
     name: 'pvite:esbuild-transform',
@@ -28,7 +32,6 @@ function esbuildTransformPlugin(): Plugin {
           sourcemap: true,
           loader: extName,
         })
-        console.log('code', transformCode)
         return {
           code: transformCode,
           map,

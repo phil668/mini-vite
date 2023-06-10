@@ -1,7 +1,8 @@
-import type { LoadResult, PartialResolvedId, SourceDescription } from 'rollup'
+import type { LoadResult, PartialResolvedId, PluginContext, SourceDescription } from 'rollup'
 import type { ServerContext } from './server/index'
 import { resolvePlugin } from './plugins/resolve'
 import { esbuildTransformPlugin } from './plugins/esbuild'
+import { importAnalysisPlugin } from './plugins/importAnalysis'
 
 // export type ServerHook = (server: ServerContext) => (void)
 export type ServerHook = (
@@ -12,11 +13,13 @@ export interface Plugin {
   name: string
   configureServer?: ServerHook
   resolveId?: (
+    this: PluginContext,
     id: string,
     importer?: string
   ) => Promise<PartialResolvedId | null> | PartialResolvedId | null
-  load?: (id: string) => Promise<LoadResult | null> | LoadResult | null
+  load?: (this: PluginContext, id: string) => Promise<LoadResult | null> | LoadResult | null
   transform?: (
+    this: PluginContext,
     code: string,
     id: string
   ) => Promise<SourceDescription | null> | SourceDescription | null
@@ -24,5 +27,5 @@ export interface Plugin {
 }
 
 export function resolvePlugins() {
-  return [resolvePlugin(), esbuildTransformPlugin()]
+  return [resolvePlugin(), esbuildTransformPlugin(), importAnalysisPlugin()]
 }

@@ -32,6 +32,6 @@ const QUERY_RE = /\?.*$/s
 
 const JS_TYPES_RE = /\.(?:j|t)sx?$|\.mjs$/
 
-const DEFAULT_EXTENSION = ['js', 'ts', 'jsx', 'tsx']
+const DEFAULT_EXTENSION = ['.js', '.ts', '.jsx', '.tsx']
 
 export { EXTERNAL_TYPES, BARE_IMPORT_RE, PRE_BUNDLE_DIR, HASH_RE, QUERY_RE, JS_TYPES_RE, DEFAULT_EXTENSION }
