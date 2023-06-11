@@ -1,6 +1,6 @@
 import type { NextHandleFunction } from 'connect'
 import createDebug from 'debug'
-import { cleanURL, isCssRequest, isJsRequest } from '../../util'
+import { cleanURL, isCssRequest, isImportRequest, isJsRequest } from '../../util'
 import type { ServerContext } from '../index'
 
 const debug = createDebug('dev')
@@ -11,10 +11,8 @@ async function transformRequest(
 ) {
   const { pluginContainer } = serverContext
   url = cleanURL(url)
-  console.log('url123', url)
   // 依次调用resolveId,load,transform对代码进行处理
   const resolvedResult = await pluginContainer.resolveId(url)
-  console.log('resolvedResult', resolvedResult)
   let transformResult
   if (resolvedResult?.id) {
     let code = await pluginContainer.load(resolvedResult.id)
@@ -34,7 +32,7 @@ function transformMiddleware(serverContext: ServerContext): NextHandleFunction {
     const { url } = req
     debug('transform middleware :%s', url)
     // 转译js请求
-    if (isJsRequest(url) || isCssRequest(url)) {
+    if (isJsRequest(url) || isCssRequest(url) || isImportRequest(url)) {
       debug('url :%s', url)
       let result = await transformRequest(url, serverContext)
       if (!result)

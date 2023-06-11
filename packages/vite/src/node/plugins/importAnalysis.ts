@@ -19,9 +19,17 @@ function importAnalysisPlugin(): Plugin {
       const ms = new MagicString(code)
       for (const importItem of imports) {
         const { s: modeStart, e: modEnd, n: modSource } = importItem
-        console.log({ modeStart, modSource, modEnd })
+        if (!modSource)
+          continue
+          // 处理静态资源请求
+        if (modSource.endsWith('.svg')) {
+          const resolvedURL = path.join(path.dirname(id), modSource)
+          // 如果是静态资源请求,给他打上?import标记
+          ms.overwrite(modeStart, modEnd, `${resolvedURL}?import`)
+          continue
+        }
         // 如果是裸模块导入,需要替换成预购建产物的路径
-        if (modSource && BARE_IMPORT_RE.test(modSource)) {
+        if (BARE_IMPORT_RE.test(modSource)) {
           const bundlePath = normalizePath(path.join('/', PRE_BUNDLE_DIR, `${modSource}.js`))
           //   console.log('bundlePath', bundlePath)
           ms.overwrite(modeStart, modEnd, bundlePath)

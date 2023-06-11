@@ -19,7 +19,7 @@ export function createPluginContainer(plugins: Plugin[]): PluginContainer {
       const ctx = new Context()
       for (const plugin of plugins) {
         if (plugin.resolveId) {
-          const out = await plugin.resolveId.call(ctx, id, importer)
+          const out = await plugin.resolveId.call(ctx as PluginContext, id, importer)
           if (out) {
             id = typeof out === 'string' ? out : out.id
             return { id }
@@ -31,8 +31,10 @@ export function createPluginContainer(plugins: Plugin[]): PluginContainer {
     async load(id: string) {
       const ctx = new Context()
       for (const plugin of plugins) {
+        console.log('plugin', id, plugin)
+
         if (plugin.load) {
-          const result = await plugin.load.call(ctx, id)
+          const result = await plugin.load.call(ctx as PluginContext, id)
           if (result)
             return result
         }
@@ -42,7 +44,7 @@ export function createPluginContainer(plugins: Plugin[]): PluginContainer {
       const ctx = new Context()
       for (const plugin of plugins) {
         if (plugin.transform) {
-          const result = await plugin.transform.call(ctx, code, id)
+          const result = await plugin.transform.call(ctx as PluginContext, code, id)
           if (!result)
             continue
 

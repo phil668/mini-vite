@@ -33,4 +33,16 @@ function isCssRequest(id: string) {
   return cleanURL(id).endsWith('.css')
 }
 
-export { normalizePath, cleanURL, isJsRequest, isCssRequest }
+function isImportRequest(id: string) {
+  return id.endsWith('?import')
+}
+
+function removeImportQuery(id: string) {
+  return id.replace(/\?import$/g, '')
+}
+
+function getShortName(file: string, root: string) {
+  return file.startsWith(`${root}/`) ? path.posix.relative(root, file) : file
+}
+
+export { normalizePath, cleanURL, isJsRequest, isCssRequest, isImportRequest, removeImportQuery, getShortName }

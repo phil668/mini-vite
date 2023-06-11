@@ -4,6 +4,7 @@ import { resolvePlugin } from './plugins/resolve'
 import { esbuildTransformPlugin } from './plugins/esbuild'
 import { importAnalysisPlugin } from './plugins/importAnalysis'
 import { cssPlugin } from './plugins/css'
+import { assestPlugin } from './plugins/assest'
 
 // export type ServerHook = (server: ServerContext) => (void)
 export type ServerHook = (
@@ -28,5 +29,5 @@ export interface Plugin {
 }
 
 export function resolvePlugins() {
-  return [resolvePlugin(), esbuildTransformPlugin(), importAnalysisPlugin(), cssPlugin()]
+  return [resolvePlugin(), esbuildTransformPlugin(), importAnalysisPlugin(), cssPlugin(), assestPlugin()]
 }
