@@ -7,6 +7,7 @@ import type { PluginContainer } from '../pluginContainer'
 import { createPluginContainer } from '../pluginContainer'
 import { indexHtmlMiddleware } from './middlewares/indexHtml'
 import { transformMiddleware } from './middlewares/transform'
+import { staticMiddleWare } from './middlewares/static'
 
 export interface ServerContext {
   root: string
@@ -38,6 +39,8 @@ async function startDevServer() {
   app.use(indexHtmlMiddleware(serverContext))
 
   app.use(transformMiddleware(serverContext))
+
+  app.use(staticMiddleWare(serverContext))
 
   app.listen(5173, async () => {
     await optimize(root)
